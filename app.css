@@ -1,3 +1,43 @@
+@keyframes about-slide-down {
+  from {
+    top: 348px;
+  }
+  to {
+    top: 508px;
+  }
+}
+
 .padding {
   height: 36px;
+}
+
+.about-cover {
+  position: absolute;
+  top: 348px;
+  left: 0;
+  width: 100vw;
+  height: 160px;
+  background-color: white;
+  z-index: -500;
+}
+
+.about-container {
+  position: absolute;
+  top: 348px;
+  left: 0;
+  width: 100vw;
+  height: 136px;
+  padding-top: 16px;
+  background-color: #cce5ff;
+  z-index: -1000;
+}
+
+.about-slide-down {
+  animation: about-slide-down 0.4s cubic-bezier(0.86, 0, 0.07, 1) forwards;
+  animation-iteration-count: 1;
+}
+
+.about-slide-up {
+  animation: about-slide-down 0.4s cubic-bezier(0.86, 0, 0.07, 1) reverse forwards;
+  animation-iteration-count: 1;
 }

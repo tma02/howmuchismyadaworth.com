@@ -44,7 +44,7 @@ function getAdaValue(api_source, currency, cb) {
 }
 
 function refreshValueDisplay(api_source) {
-  $('#ada-value-input').val('...');
+  $('#ada-value-input').val('');
   $('#ada-value-input').removeClass('is-valid');
   $('#current-value').html('...');
   getAdaValue(api_source, currency, function(value) {
@@ -54,10 +54,10 @@ function refreshValueDisplay(api_source) {
 }
 
 function calculateAdaValue(api_source, currency) {
-  var ada = $('#ada').val();
+  var ada = $('#ada').val().replace(',', '');
   var value = ada * data[api_source].getPrice(currency);
   var decimalFixedValue = ((value *= 1000000) - (value % 1)) / 1000000;
-  $('#ada-value-input').val(decimalFixedValue > 0 ? decimalFixedValue : '...');
+  $('#ada-value-input').val(decimalFixedValue > 0 ? decimalFixedValue : '');
   if (decimalFixedValue > 0) {
     $('#ada-value-input').addClass('is-valid');
   }
@@ -86,8 +86,24 @@ $(function() {
     }
     catch (e) {
       console.log(e);
-      $('#ada-value-input').val('...');
+      $('#ada-value-input').val('');
       $('#ada-value-input').removeClass('is-valid');
+    }
+  });
+  $('#about').click(function() {
+    if ($('.about-container').hasClass('about-slide-down')) {
+      $('.about-container').removeClass('about-slide-down');
+      setTimeout(function() {
+        $('.about-container').addClass('about-slide-up');
+      }, 1);
+      $('#about').html('About');
+    }
+    else {
+      $('.about-container').removeClass('about-slide-up');
+      setTimeout(function() {
+        $('.about-container').addClass('about-slide-down');
+      }, 1);
+      $('#about').html('Close');
     }
   });
 

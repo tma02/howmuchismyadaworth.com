@@ -4,6 +4,7 @@
   <title>How much is my ADA worth?</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Tells you how much your ADA is worth.">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link rel="stylesheet" href="./app.css">
 </head>
@@ -13,8 +14,9 @@
     <div class="padding"></div>
     Currently Trading @ <span id="current-value">...</span> <a href="#" id="refresh-price">Refresh</a>
     <div class="padding"></div>
-    Your ADA:
+    Your ADA
     <div class="input-group">
+      <input type="text" class="form-control" aria-label="Amount" id="ada" placeholder="How much is in your wallet?">
       <span class="input-group-addon">
         <svg width="18px" height="20px" viewBox="0 0 18 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <!-- Generator: sketchtool 42 (36781) - http://www.bohemiancoding.com/sketch -->
@@ -36,12 +38,11 @@
           </g>
         </svg>
       </span>
-      <input type="text" class="form-control" aria-label="Amount" id="ada">
     </div>
     <div class="padding"></div>
-    How much your ADA is worth:
+    How much your ADA is worth
     <div class="input-group">
-      <input type="text" class="form-control" aria-label="" id="ada-value-input" value="..." disabled>
+      <input type="text" class="form-control" aria-label="" id="ada-value-input" placeholder="..." disabled>
       <span class="input-group-addon" id="ada-value-currency">
         <select id="currency" class="form-control">
           <option selected>...</option>
@@ -51,6 +52,18 @@
     <div class="padding"></div>
     <div class="footer">
       <a href="https://github.com/tma02/howmuchismyadaworth.com" target="_blank"><img src="GitHub-Mark-32px.png" height="16px"></a>
+      <a href="#" style="color: black; vertical-align: middle; margin-left: 4px;" id="about">About</a>
+    </div>
+    <div class="about-cover">
+    </div>
+    <div class="about-container">
+      <div class="container" style="max-width: 512px;">
+        <p>
+          We estimate your ADA wallet's value based on current market prices gathered from CoinMarketCap.
+          All calculations are done locally. <br/> <small>Your wallet data is neither sent to nor stored on our servers.
+          We use LocalStorage to help remember your preferred currency and wallet balance.</small>
+        </p>
+      </div>
     </div>
   </div>
 
