@@ -6,6 +6,10 @@ if (localStorage.currency) {
   currency = localStorage.currency;
 }
 var api = 'coinmarketcap';
+var adaType = 'address';
+if (localStorage.adaType) {
+  adaType = localStorage.adaType;
+}
 
 var data = {
   coinmarketcap: {
@@ -43,18 +47,52 @@ function getAdaValue(api_source, currency, cb) {
   xhr.send();
 }
 
+function getWalletBalance(address, cb) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var balance = JSON.parse(xhr.responseText);
+    cb(balance.Right.caBalance.getCoin / 1000000);
+  }
+  xhr.open('GET', `https://cardanoexplorer.com/api/addresses/summary/${address}`);
+  xhr.responseType = 'text';
+  xhr.send();
+}
+
 function refreshValueDisplay(api_source) {
   $('#ada-value-input').val('');
   $('#ada-value-input').removeClass('is-valid');
   $('#current-value').html('...');
   getAdaValue(api_source, currency, function(value) {
     $('#current-value').html(`${value} ${currency}`);
-    calculateAdaValue(api_source, currency);
+    if (adaType === 'address') {
+      getWalletBalance($('#ada').val(), function(balance) {
+        calculateAdaValue(api_source, currency, balance);
+      });
+    }
+    else {
+      calculateAdaValue(api_source, currency, 0);
+    }
   });
+
+  if (adaType === 'balance') {
+    var adaBalance = parseInt($('#ada').val().replace(',', ''));
+    $('#ada-balance').html(isNaN(adaBalance) ? '' : `${adaBalance} `);
+  }
+  else {
+    getWalletBalance($('#ada').val(), function(balance) {
+      $('#ada-balance').html(`${balance} `);
+    });
+  }
 }
 
-function calculateAdaValue(api_source, currency) {
-  var ada = $('#ada').val().replace(',', '');
+function calculateAdaValue(api_source, currency, wallet_balance) {
+  var ada;
+  if (adaType === 'balance') {
+    ada = $('#ada').val().replace(',', '');
+  }
+  else {
+    ada = wallet_balance;
+  }
   var value = ada * data[api_source].getPrice(currency);
   var decimalFixedValue = ((value *= 1000000) - (value % 1)) / 1000000;
   $('#ada-value-input').val(decimalFixedValue > 0 ? decimalFixedValue : '');
@@ -67,12 +105,26 @@ function calculateAdaValue(api_source, currency) {
   localStorage.ada = ada;
 }
 
+function renderAdaType() {
+  if (adaType === 'balance') {
+    $('#ada-type-icon').attr('data', './ada-symbol-smallest-dark.inline.svg');
+    $('#toggle-ada-type').html('<small>Use wallet address instead</small>');
+    $('#ada').attr('placeholder', 'How much is in your wallet?');
+  }
+  else {
+    $('#ada-type-icon').attr('data', './wallet-ic.inline.svg');
+    $('#toggle-ada-type').html('<small>Use wallet balance instead</small>');
+    $('#ada').attr('placeholder', 'What\'s your wallet address?');
+  }
+}
+
 $(function() {
 
   if (localStorage.ada) {
     $('#ada').val(localStorage.ada);
   }
   refreshValueDisplay(api);
+  renderAdaType();
   renderCurrencyDisplay(currency);
   $('#currency').change(function() {
     currency = currencies[$(this)[0].selectedIndex];
@@ -82,7 +134,17 @@ $(function() {
   $('#refresh-price').click(function() { refreshValueDisplay(api); });
   $('#ada').keyup(function() {
     try {
-      calculateAdaValue(api, currency);
+      if (adaType === 'balance') {
+        calculateAdaValue(api, currency, 0);
+        var adaBalance = parseInt($('#ada').val().replace(',', ''));
+        $('#ada-balance').html(isNaN(adaBalance) ? '' : `${adaBalance} `);
+      }
+      else {
+        getWalletBalance($('#ada').val(), function(balance) {
+          calculateAdaValue(api, currency, balance);
+          $('#ada-balance').html(`${balance} `);
+        });
+      }
     }
     catch (e) {
       console.log(e);
@@ -105,6 +167,16 @@ $(function() {
       }, 1);
       $('#about').html('Close');
     }
+  });
+  $('#toggle-ada-type').click(function() {
+    if (adaType === 'address') {
+      adaType = 'balance';
+    }
+    else {
+      adaType = 'address';
+    }
+    renderAdaType();
+    localStorage.adaType = adaType;
   });
 
 });
