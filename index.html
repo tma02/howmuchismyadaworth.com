@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>How much is my ADA worth?</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+  <div class="container" style="margin-top: 36px; max-width: 512px;">
+    <h1>How much is <br/> my ADA worth?</h1>
+    <div class="padding"></div>
+    Currently Trading @ <span id="current-value">...</span> <a href="#" id="refresh-price">Refresh</a>
+    <div class="padding"></div>
+    Your ADA:
+    <div class="input-group">
+      <span class="input-group-addon">
+        <svg width="18px" height="20px" viewBox="0 0 18 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <!-- Generator: sketchtool 42 (36781) - http://www.bohemiancoding.com/sketch -->
+          <title>5B47861B-BE78-47A7-AF40-C1783A7FA64B</title>
+          <desc>Created with sketchtool.</desc>
+          <defs></defs>
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+            <g id="new_wallet_screen_summary" transform="translate(-1238.000000, -715.000000)" stroke="#5E6066" stroke-width="1.5">
+              <g id="amount-copy" transform="translate(760.000000, 460.000000)">
+                <g id="pending" transform="translate(60.000000, 246.000000)">
+                  <g id="ada-symbol-smallest-dark-copy" transform="translate(419.000000, 10.000000)">
+                    <polyline id="Path-2" stroke-linejoin="round" points="0.505531915 18 7.92 0 15.3344681 18"></polyline>
+                    <path d="M1.68510638,7.75 L14.1548936,7.75" id="Line"></path>
+                    <path d="M0,10.75 L15.84,10.75" id="Line-Copy"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </span>
+      <input type="text" class="form-control" aria-label="Amount" id="ada">
+    </div>
+    <div class="padding"></div>
+    How much your ADA is worth:
+    <div class="input-group">
+      <input type="text" class="form-control" aria-label="" id="ada-value-input" value="..." disabled>
+      <span class="input-group-addon" id="ada-value-currency">
+        <select id="currency" class="form-control">
+          <option selected>...</option>
+        </select>
+      </span>
+    </div>
+    <div class="padding"></div>
+    <div class="footer">
+      <a href="https://github.com/tma02/howmuchismyadaworth.com" target="_blank"><img src="GitHub-Mark-32px.png" height="16px"></a>
+    </div>
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="./app.js"></script>
+</body>
+</html>
