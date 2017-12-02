@@ -6,10 +6,10 @@ if (localStorage.currency) {
   currency = localStorage.currency;
 }
 var api = 'coinmarketcap';
-var adaType = 'address';
-if (localStorage.adaType) {
+var adaType = 'balance';
+/*if (localStorage.adaType) {
   adaType = localStorage.adaType;
-}
+}*/
 
 var data = {
   coinmarketcap: {
