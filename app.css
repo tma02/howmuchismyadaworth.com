@@ -1,6 +1,6 @@
 @keyframes about-slide-down {
   from {
-    top: 348px;
+    top: 320px;
   }
   to {
     top: 508px;
@@ -13,20 +13,19 @@
 
 .about-cover {
   position: absolute;
-  top: 348px;
+  top: 320px;
   left: 0;
   width: 100vw;
-  height: 160px;
+  height: 180px;
   background-color: white;
   z-index: -500;
 }
 
 .about-container {
   position: absolute;
-  top: 348px;
+  top: 320px;
   left: 0;
   width: 100vw;
-  height: 136px;
   padding-top: 16px;
   background-color: #cce5ff;
   z-index: -1000;
