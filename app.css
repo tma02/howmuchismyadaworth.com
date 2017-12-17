@@ -1,9 +1,9 @@
 @keyframes about-slide-down {
   from {
-    top: 320px;
+    top: 228px;
   }
   to {
-    top: 508px;
+    top: 494px;
   }
 }
 
@@ -13,22 +13,24 @@
 
 .about-cover {
   position: absolute;
-  top: 320px;
+  top: 228px;
   left: 0;
   width: 100vw;
-  height: 188px;
+  height: 280px;
   background-color: white;
   z-index: -500;
 }
 
 .about-container {
   position: absolute;
-  top: 320px;
+  top: 228px;
   left: 0;
   width: 100vw;
   padding-top: 16px;
   background-color: #cce5ff;
   z-index: -1000;
+  max-height: 248px;
+  overflow-y: scroll;
 }
 
 .about-slide-down {
