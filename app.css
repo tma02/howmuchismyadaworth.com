@@ -30,7 +30,7 @@
   background-color: #cce5ff;
   z-index: -1000;
   max-height: 248px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .about-slide-down {
