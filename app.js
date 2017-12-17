@@ -10,6 +10,8 @@ var adaType = 'balance';
 /*if (localStorage.adaType) {
   adaType = localStorage.adaType;
 }*/
+var valueRefreshWorker = new Worker('./valueRefreshWorker.js');
+var autoRefresh = localStorage.autoRefresh;
 
 var data = {
   coinmarketcap: {
@@ -62,6 +64,7 @@ function refreshValueDisplay(api_source) {
   $('#ada-value-input').val('');
   $('#ada-value-input').removeClass('is-valid');
   $('#current-value').html('...');
+  document.title = '... - How much is my ADA worth?';
   getAdaValue(api_source, currency, function(value) {
     $('#current-value').html(`${value} ${currency}`);
     if (adaType === 'address') {
@@ -76,7 +79,7 @@ function refreshValueDisplay(api_source) {
 
   if (adaType === 'balance') {
     var adaBalance = parseInt($('#ada').val().replace(',', ''));
-    $('#ada-balance').html(isNaN(adaBalance) ? '' : `${adaBalance} `);
+    var balanceString = isNaN(adaBalance) ? '' : `${adaBalance} `;
   }
   else {
     getWalletBalance($('#ada').val(), function(balance) {
@@ -95,7 +98,9 @@ function calculateAdaValue(api_source, currency, wallet_balance) {
   }
   var value = ada * data[api_source].getPrice(currency);
   var decimalFixedValue = ((value *= 1000000) - (value % 1)) / 1000000;
-  $('#ada-value-input').val(decimalFixedValue > 0 ? decimalFixedValue : '');
+  var valueString = decimalFixedValue > 0 ? decimalFixedValue : '';
+  $('#ada-value-input').val(valueString);
+  document.title = `${valueString} - How much is my ADA worth?`;
   if (decimalFixedValue > 0) {
     $('#ada-value-input').addClass('is-valid');
   }
@@ -123,6 +128,10 @@ $(function() {
   if (localStorage.ada) {
     $('#ada').val(localStorage.ada);
   }
+  if (localStorage.autoRefresh) {
+    valueRefreshWorker.postMessage({ command: 'start-auto-refresh' });
+    $('#auto-refresh').prop('checked', true);
+  }
   refreshValueDisplay(api);
   renderAdaType();
   renderCurrencyDisplay(currency);
@@ -132,6 +141,21 @@ $(function() {
     refreshValueDisplay(api);
   });
   $('#refresh-price').click(function() { refreshValueDisplay(api); });
+  valueRefreshWorker.onmessage = function(e) {
+    if (e.data.command === 'refresh') {
+      refreshValueDisplay(api);
+    }
+  };
+  $('#auto-refresh').change(function() {
+    if ($(this).prop('checked')) {
+      valueRefreshWorker.postMessage({ command: 'start-auto-refresh' });
+      localStorage.autoRefresh = true;
+    }
+    else {
+      valueRefreshWorker.postMessage({ command: 'stop-auto-refresh' });
+      localStorage.autoRefresh = false;
+    }
+  });
   $('#ada').keyup(function() {
     try {
       if (adaType === 'balance') {
