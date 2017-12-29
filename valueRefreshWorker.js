@@ -6,7 +6,7 @@ onmessage = function(e) {
       if (!autoRefreshInterval) {
         autoRefreshInterval = setInterval(function() {
           postMessage({ command: 'refresh' });
-        }, 300 * 1000);
+        }, 60 * 1000);
       }
       break;
     case 'stop-auto-refresh':
