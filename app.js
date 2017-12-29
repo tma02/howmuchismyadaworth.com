@@ -5,7 +5,7 @@ var currency = 'USD';
 if (localStorage.currency) {
   currency = localStorage.currency;
 }
-var api = 'coinmarketcap';
+var api = 'howmuchismyadaworth';
 var adaType = 'balance';
 /*if (localStorage.adaType) {
   adaType = localStorage.adaType;
@@ -24,6 +24,18 @@ var data = {
     },
     getPrice: function(currency) {
       return this.data[0][`price_${currency.toLowerCase()}`];
+    }
+  },
+  howmuchismyadaworth: {
+    api_source: 'howmuchismyadaworth',
+    url: 'https://api.howmuchismyadaworth.com/v1/value/',
+    loaded: false,
+    data: [],
+    onPriceUpdate: function() {
+
+    },
+    getPrice: function(currency) {
+      return this.data.value;
     }
   },
 };
